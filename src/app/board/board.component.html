@@ -1,16 +1,20 @@
 <span class="heading"><span class="tic">TIC </span><span>TAC </span><span class="toe">TOE</span></span>
 
 <div class="grid-container">
-    <div class="grid-item" [ngClass]="{'x-winner': player== 'X' && !winner}">X</div>
-    <div class="grid-item" [ngClass]="{'o-winner': player== 'O' && !winner}">O</div>
+    <div class="grid-item" [ngClass]="{'x-winner': player== 'X' && !winner && !(!winner && !this.blocks.includes(null))}">X</div>
+    <div class="grid-item" [ngClass]="{'o-winner': player== 'O' && !winner && !(!winner && !this.blocks.includes(null))}">O</div>
   </div>
 <div class="winner-block" [ngClass]="{'x-winner': winner == 'X', 'o-winner': winner=='O'}" *ngIf="winner">
    <h1>WINNER</h1>
    <span class="winner-span">{{winner}}</span>  
 </div>
 
+<div class="winner-block" *ngIf="!winner && !this.blocks.includes(null)">
+    <span class="draw-span">DRAW</span>  
+</div>
 
-<main *ngIf="!winner">
+
+<main *ngIf="!winner && this.blocks.includes(null)">
     <app-block
         *ngFor="let val of blocks; let i = index" 
         [value]="val" [winner]="winner" 
